@@ -12,6 +12,7 @@ public class CrosswordController {
 	 * Matrix of cells representing the crossword puzzle
 	 */
 	private Cell [][] crossword;
+
 	
 	/**
 	 * method for initializing a crossword puzzle
@@ -19,6 +20,21 @@ public class CrosswordController {
 	 * the initial state of a crossword puzzle
 	 */
 	public void initCrossword(String[][] puzzle) {
+
+		crossword = new Cell[puzzle.length][puzzle[0].length];
+
+		for(int i=0; i<puzzle.length; i++){
+			for(int j=0; j<puzzle[0].length; j++){
+
+				if(puzzle[i][j] == " "){
+					crossword[i][j]= new Cell(CellType.BLACK, puzzle[i][j], (i++));
+				}else{
+					crossword[i][j]= new Cell(CellType.CLOSED, puzzle[i][j], (i++));	
+				}
+				
+		}
+	}
+		
 		
 		
 	}
@@ -51,8 +67,27 @@ public class CrosswordController {
 	 * @return
 	 */
 	public String getHint(String letter) {
+
+		String hint = "";
+		boolean flag = false;
+
+			for(int i=0; i<crossword.length && !flag  ; i++){
+				for(int j=0; j<crossword[0].length && !flag; j++){
+					
+					if(letter.equals(crossword[i][j].getLetter())){
+						flag = true;
+						hint = "Hay una palabra con esa " + letter + " en el crucigrama en la " + crossword[i][j];
+					}else{
+						hint = "Lo siento, no hay palabras con esa " + letter;
+					}
+
+
+			}
+		}
+
+
 		
-		return null;
+		return hint;
 	}
 	
 	/**
@@ -96,6 +131,10 @@ public class CrosswordController {
 						numbers += " "+actual.getNumber() +"   ";
 						letters += "    "+ actual.getLetter() + " ";
 					}
+
+					
+
+					
 				}else //una cifra
 				{
 					//empty cell
@@ -119,6 +158,10 @@ public class CrosswordController {
 		out+= line + "\n";
 		return out;
 	}
+
+
+	
+	
 
 
 }
