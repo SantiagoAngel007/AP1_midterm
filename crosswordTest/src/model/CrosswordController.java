@@ -23,13 +23,16 @@ public class CrosswordController {
 
 		crossword = new Cell[puzzle.length][puzzle[0].length];
 
+		 int count = 1;
+
 		for(int i=0; i<puzzle.length; i++){
 			for(int j=0; j<puzzle[0].length; j++){
 
 				if(puzzle[i][j] == " "){
-					crossword[i][j]= new Cell(CellType.BLACK, puzzle[i][j], (i++));
+					crossword[i][j]= new Cell(CellType.BLACK, puzzle[i][j], (count));
 				}else{
-					crossword[i][j]= new Cell(CellType.CLOSED, puzzle[i][j], (i++));	
+					crossword[i][j]= new Cell(CellType.CLOSED, puzzle[i][j], (count));
+					count++;	
 				}
 				
 		}
@@ -38,6 +41,10 @@ public class CrosswordController {
 		
 		
 	}
+
+	
+
+
 	/**
 	 * Method to verify if a crossword puzzle is initialized
 	 * @return boolean, true if it is initialized, else false
